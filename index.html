@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZenFlow - Your Digital Yoga Companion</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+    <style>
+        /* Skeumorphic styles */
+        .skeumorphic {
+            background: linear-gradient(145deg, #f0f0f0, #ffffff);
+            box-shadow: 20px 20px 60px #bebebe,
+                       -20px -20px 60px #ffffff;
+            border: 1px solid rgba(255,255,255,0.4);
+        }
+        
+        .skeumorphic-inset {
+            background: linear-gradient(145deg, #ffffff, #f0f0f0);
+            box-shadow: inset 5px 5px 10px #bebebe,
+                       inset -5px -5px 10px #ffffff;
+        }
+
+        .meditation-card {
+            transition: transform 0.3s ease;
+        }
+
+        .meditation-card:hover {
+            transform: translateY(-5px);
+        }
+
+        /* Custom Timer Styles */
+        .timer-display {
+            font-family: 'Playfair Display', serif;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        /* Progress Bar Animation */
+        @keyframes progress {
+            from { width: 0%; }
+            to { width: 100%; }
+        }
+
+        .progress-animation {
+            animation: progress 60s linear;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f8f9fa;
+        }
+
+        .custom-shadow {
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body class="min-h-screen bg-gradient-to-br from-teal-50 to-blue-50">
+
+    <!-- Navigation -->
+    <nav class="skeumorphic fixed w-full z-50 bg-white bg-opacity-90 backdrop-blur-sm">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <div class="text-2xl font-bold text-teal-600">ZenFlow</div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#home" class="text-gray-600 hover:text-teal-600">Home</a>
+                    <a href="#poses" class="text-gray-600 hover:text-teal-600">Poses</a>
+                    <a href="#meditation" class="text-gray-600 hover:text-teal-600">Meditation</a>
+                    <a href="#progress" class="text-gray-600 hover:text-teal-600">Progress</a>
+                </div>
+                <button class="md:hidden" onclick="toggleMenu()">
+                    <i class="bi bi-list text-2xl"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div id="mobileMenu" class="hidden fixed w-full bg-white z-40 top-16 skeumorphic-inset">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex flex-col space-y-4">
+                <a href="#home" class="text-gray-600 hover:text-teal-600">Home</a>
+                <a href="#poses" class="text-gray-600 hover:text-teal-600">Poses</a>
+                <a href="#meditation" class="text-gray-600 hover:text-teal-600">Meditation</a>
+                <a href="#progress" class="text-gray-600 hover:text-teal-600">Progress</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section id="home" class="pt-24 pb-12">
+        <div class="container mx-auto px-6">
+            <div class="skeumorphic rounded-3xl p-8 md:p-12">
+                <div class="grid md:grid-cols-2 gap-8 items-center">
+                    <div>
+                        <h1 class="text-4xl md:text-5xl font-bold mb-6 text-gray-800">Your Journey to Inner Peace Begins Here</h1>
+                        <p class="text-lg text-gray-600 mb-8">Personalized yoga sessions, guided meditation, and progress tracking - all in one place.</p>
+                        <button onclick="startYogaSession()" class="skeumorphic px-8 py-4 rounded-full bg-teal-500 text-white font-semibold hover:bg-teal-600 transition duration-300">
+                            Start Your Practice
+                        </button>
+                    </div>
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b" 
+                             alt="Yoga Pose" 
+                             class="rounded-2xl w-full h-96 object-cover">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Yoga Poses Section -->
+    <section id="poses" class="py-12">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold text-center mb-12 text-gray-800">Featured Yoga Poses</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Pose Card 1 -->
+                <div class="skeumorphic rounded-xl overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1506126613408-eca07ce68773" 
+                         alt="Meditation Pose" 
+                         class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">Lotus Pose</h3>
+                        <p class="text-gray-600 mb-4">Perfect for meditation and breathing exercises</p>
+                        <button onclick="showPoseDetails('lotus')" class="skeumorphic-inset w-full py-2 rounded-lg text-teal-600 font-medium">
+                            Learn More
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Pose Card 2 -->
+                <div class="skeumorphic rounded-xl overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1552286450-4a669f880062" 
+                         alt="Warrior Pose" 
+                         class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">Warrior Pose</h3>
+                        <p class="text-gray-600 mb-4">Build strength and improve balance</p>
+                        <button onclick="showPoseDetails('warrior')" class="skeumorphic-inset w-full py-2 rounded-lg text-teal-600 font-medium">
+                            Learn More
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Pose Card 3 -->
+                <div class="skeumorphic rounded-xl overflow-hidden">
+                    <img src="https://images.unsplash.com/photo-1599447421383-43c26457c4ae" 
+                         alt="Child Pose" 
+                         class="w-full h-48 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-semibold mb-2">Child's Pose</h3>
+                        <p class="text-gray-600 mb-4">Relax and restore your energy</p>
+                        <button onclick="showPoseDetails('child')" class="skeumorphic-inset w-full py-2 rounded-lg text-teal-600 font-medium">
+                            Learn More
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Timer Section -->
+    <section class="py-12 bg-white bg-opacity-50">
+        <div class="container mx-auto px-6">
+            <div class="skeumorphic rounded-3xl p-8">
+                <div class="text-center">
+                    <h2 class="text-3xl font-bold mb-8">Practice Timer</h2>
+                    <div class="timer-display text-6xl font-bold mb-8" id="timer">00:00</div>
+                    <div class="flex justify-center gap-4">
+                        <button onclick="startTimer()" class="skeumorphic px-6 py-3 rounded-lg bg-teal-500 text-white">
+                            Start
+                        </button>
+                        <button onclick="pauseTimer()" class="skeumorphic px-6 py-3 rounded-lg bg-gray-500 text-white">
+                            Pause
+                        </button>
+                        <button onclick="resetTimer()" class="skeumorphic px-6 py-3 rounded-lg bg-red-500 text-white">
+                            Reset
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Meditation Section -->
+    <section id="meditation" class="py-12">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold text-center mb-12">Meditation & Relaxation</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <!-- Meditation Card -->
+                <div class="skeumorphic rounded-xl p-6">
+                    <div class="flex items-center mb-4">
+                        <i class="bi bi-peace text-3xl text-teal-500 mr-4"></i>
+                        <h3 class="text-xl font-semibold">Guided Meditation</h3>
+                    </div>
+                    <p class="text-gray-600 mb-4">Experience AI-guided meditation sessions personalized for you.</p>
+                    <button onclick="startMeditation()" class="skeumorphic w-full py-3 rounded-lg bg-teal-500 text-white">
+                        Begin Session
+                    </button>
+                </div>
+
+                <!-- Music Card -->
+                <div class="skeumorphic rounded-xl p-6">
+                    <div class="flex items-center mb-4">
+                        <i class="bi bi-music-note-beamed text-3xl text-teal-500 mr-4"></i>
+                        <h3 class="text-xl font-semibold">Relaxation Music</h3>
+                    </div>
+                    <p class="text-gray-600 mb-4">Soothing sounds to enhance your practice.</p>
+                    <button onclick="playMusic()" class="skeumorphic w-full py-3 rounded-lg bg-teal-500 text-white">
+                        Play Music
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Progress Section -->
+    <section id="progress" class="py-12">
+        <div class="container mx-auto px-6">
+            <div class="skeumorphic rounded-3xl p-8">
+                <h2 class="text-3xl font-bold mb-8 text-center">Your Progress</h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="skeumorphic-inset rounded-xl p-6">
+                        <h3 class="text-xl font-semibold mb-4">Practice Streak</h3>
+                        <p class="text-4xl font-bold text-teal-500" id="streak">7 Days</p>
+                    </div>
+                    <div class="skeumorphic-inset rounded-xl p-6">
+                        <h3 class="text-xl font-semibold mb-4">Minutes Practiced</h3>
+                        <p class="text-4xl font-bold text-teal-500" id="minutes">120</p>
+                    </div>
+                    <div class="skeumorphic-inset rounded-xl p-6">
+                        <h3 class="text-xl font-semibold mb-4">Poses Mastered</h3>
+                        <p class="text-4xl font-bold text-teal-500" id="poses">8</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // Mobile Menu Toggle
+        function toggleMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('hidden');
+        }
+
+        // Timer Functionality
+        let timerInterval;
+        let seconds = 0;
+        let isRunning = false;
+
+        function startTimer() {
+            if (!isRunning) {
+                isRunning = true;
+                timerInterval = setInterval(updateTimer, 1000);
+            }
+        }
+
+        function pauseTimer() {
+            isRunning = false;
+            clearInterval(timerInterval);
+        }
+
+        function resetTimer() {
+            isRunning = false;
+            clearInterval(timerInterval);
+            seconds = 0;
+            updateTimerDisplay();
+        }
+
+        function updateTimer() {
+            seconds++;
+            updateTimerDisplay();
+        }
+
+        function updateTimerDisplay() {
+            const minutes = Math.floor(seconds / 60);
+            const remainingSeconds = seconds % 60;
+            document.getElementById('timer').textContent = 
+                `${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
+        }
+
+        // Meditation and Music Controls
+        let isPlaying = false;
+
+        function startMeditation() {
+            alert('Starting guided meditation session...');
+            // Add meditation logic here
+        }
+
+        function playMusic() {
+            const button = event.target;
+            if (!isPlaying) {
+                button.textContent = 'Pause Music';
+                isPlaying = true;
+                // Add music play logic here
+            } else {
+                button.textContent = 'Play Music';
+                isPlaying = false;
+                // Add music pause logic here
+            }
+        }
+
+        // Pose Details Modal
+        function showPoseDetails(pose) {
+            alert(`Showing detailed instructions for ${pose} pose...`);
+            // Add modal display logic here
+        }
+
+        // Start Yoga Session
+        function startYogaSession() {
+            alert('Starting personalized yoga session...');
+            // Add session start logic here
+        }
+
+        // Progress Tracking (Sample Data)
+        let progress = {
+            streak: 7,
+            minutes: 120,
+            poses: 8
+        };
+
+        // Update progress display
+        function updateProgress() {
+            document.getElementById('streak').textContent = `${progress.streak} Days`;
+            document.getElementById('minutes').textContent = progress.minutes;
+            document.getElementById('poses').textContent = progress.poses;
+        }
+
+        // Initialize progress on load
+        updateProgress();
+    </script>
+
+<script>document.body.addEventListener('wheel', e => { if (!e.ctrlKey) return; e.preventDefault(); return }, { passive: false })</script>
+	</body>
+</html>
